@@ -1,0 +1,44 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 62.5%;
+	overflow: hidden;
+}
+
+body {
+	font-family: 'Kumbh Sans', sans-serif;
+	font-size: 1.8rem;
+	background: linear-gradient(to right, #c9d6ff, #e2e2e2);
+	color: rgb(84, 84, 84);
+}
+
+.wrapper {
+	max-width: 1200px;
+	margin: 0 auto;
+	width: 100%;
+}
+
+section {
+	height: 100vh;
+	text-align: center;
+	padding: 5em;
+}
+
+section:nth-child(2) {
+	background-color: aliceblue;
+}
+section:nth-child(3) {
+	background-color: bisque;
+}
+section:nth-child(4) {
+	background-color: cadetblue;
+}
+
+section p {
+	max-width: 75%;
+	margin: 10px auto;
+}
