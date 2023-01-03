@@ -3,14 +3,16 @@ class Scroller {
 		const rootElement = document.querySelector(rootSelector);
 		this.sections = document.querySelectorAll('section');
 		const arraySections = Array.from(this.sections);
-		
-		const currentSectionIndex = arraySections.findIndex(this.isScrolledIntoView)
-	
-        this.currentSectionIndex = Math.max(currentSectionIndex, 0)
+
+		const currentSectionIndex = arraySections.findIndex(
+			this.isScrolledIntoView
+		);
+
+		this.currentSectionIndex = Math.max(currentSectionIndex, 0);
 
 		this.isThrottled = false;
 
-		this.drowNavigation()
+		this.drowNavigation();
 	}
 
 	isScrolledIntoView(element) {
@@ -23,7 +25,7 @@ class Scroller {
 		return isVissible;
 	}
 
-	listenScroll (event) {
+	listenScroll(event) {
 		if (this.isThrottled) return;
 		this.isThrottled = true;
 
@@ -33,9 +35,9 @@ class Scroller {
 		const direction = event.deltaY > 0 ? 1 : -1;
 
 		this.scrollLogic(direction);
-	};
+	}
 
-	scrollLogic (direction) {
+	scrollLogic(direction) {
 		if (direction === 1) {
 			const isLastSection =
 				this.currentSectionIndex === this.sections.length - 1;
@@ -46,48 +48,47 @@ class Scroller {
 		}
 		this.currentSectionIndex += direction;
 		this.scrollToCurrentSection();
-	};
+	}
 
-	scrollToCurrentSection () {
-		this.selectActiveNavItem()
+	scrollToCurrentSection() {
+		this.selectActiveNavItem();
 		this.sections[this.currentSectionIndex].scrollIntoView({
 			behavior: 'smooth',
 			block: 'start',
 		});
-	};
-
-
-	drowNavigation () {
-		this.navigationContainer = document.createElement('aside')
-		this.navigationContainer.setAttribute('class', 'scroller__navigation')
-		const list = document.createElement('ul')
-		this.sections.forEach((section, index) => {
-			const listItem = document.createElement('li')
-
-			listItem.addEventListener('click', () => {
-				this.currentSectionIndex = index
-
-				this.scrollToCurrentSection()
-			})
-
-			list.appendChild(listItem)
-		})
-
-		this.navigationContainer.appendChild(list)
-		document.body.appendChild(this.navigationContainer)
-		this.selectActiveNavItem()
 	}
 
-	selectActiveNavItem () {
-		if(this.navigationContainer) {
-			const navigationItems = this.navigationContainer.querySelectorAll('li')
+	drowNavigation() {
+		this.navigationContainer = document.createElement('aside');
+		this.navigationContainer.setAttribute('class', 'scroller__navigation');
+		const list = document.createElement('ul');
+		this.sections.forEach((section, index) => {
+			const listItem = document.createElement('li');
+
+			listItem.addEventListener('click', () => {
+				this.currentSectionIndex = index;
+
+				this.scrollToCurrentSection();
+			});
+
+			list.appendChild(listItem);
+		});
+
+		this.navigationContainer.appendChild(list);
+		document.body.appendChild(this.navigationContainer);
+		this.selectActiveNavItem();
+	}
+
+	selectActiveNavItem() {
+		if (this.navigationContainer) {
+			const navigationItems = this.navigationContainer.querySelectorAll('li');
 			navigationItems.forEach((item, index) => {
 				if (index === this.currentSectionIndex) {
-					item.classList.add('active')
+					item.classList.add('active');
 				} else {
-					item.classList.remove('active')
+					item.classList.remove('active');
 				}
-			})
+			});
 		}
 	}
 }
